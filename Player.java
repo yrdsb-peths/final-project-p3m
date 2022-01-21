@@ -30,6 +30,7 @@ public class Player extends Actor
         
         secondLevel();
         
+        lose();
     }
     //When the player falls, they should slowly fall faster the farther they fall
     private void fall()
@@ -46,6 +47,17 @@ public class Player extends Actor
             if(speed > 5)
                  speed = 5;
             fall();
+        }
+    }
+    
+    public void lose()
+    {
+        Actor character = (Actor) getWorld().getObjects(Player.class).get(0);
+        if(character.getY() == 719 && Greenfoot.isKeyDown("right"))
+        {
+            Level Level = (Level) getWorld();
+            String loss = "You lost. Press R to restart";
+            Level.display(loss);
         }
     }
     
