@@ -49,7 +49,8 @@ public class Player extends Actor
             fall();
         }
     }
-    
+    //If the player falls off the platforms then they are prompted with a screen
+    //that informs them so and tells them to restart
     public void lose()
     {
         Actor character = (Actor) getWorld().getObjects(Player.class).get(0);
@@ -60,7 +61,7 @@ public class Player extends Actor
             Level.display(loss);
         }
     }
-    
+    //Sets the world at the beginning if the player presses r
     public void restart()
     {
         if(Greenfoot.isKeyDown("r"))
