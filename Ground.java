@@ -21,11 +21,11 @@ public class Ground extends Actor
     {
         // Add your action code here.
         //Ground moves along the screen for the player to land on
-        if(Greenfoot.isKeyDown("right"))
+        if(Greenfoot.isKeyDown("d"))
         {
             move(-10);
         }
-        if(Greenfoot.isKeyDown("left"))
+        if(Greenfoot.isKeyDown("a"))
         {
             move(10);
         }

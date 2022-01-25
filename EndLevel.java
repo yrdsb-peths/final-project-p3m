@@ -15,11 +15,11 @@ public class EndLevel extends Actor
     public void act()
     {
         //An object that moves along the screen
-        if(Greenfoot.isKeyDown("right"))
+        if(Greenfoot.isKeyDown("d"))
         {
             move(-10);
         }
-        if(Greenfoot.isKeyDown("left"))
+        if(Greenfoot.isKeyDown("a"))
         {
             move(10);
         }

@@ -28,6 +28,8 @@ public class Player extends Actor
         
         restart();
         
+        exitToTitle();
+        
         secondLevel();
         
         lose();
@@ -54,11 +56,11 @@ public class Player extends Actor
     public void lose()
     {
         Actor character = (Actor) getWorld().getObjects(Player.class).get(0);
-        if(character.getY() == 719 && Greenfoot.isKeyDown("right"))
+        if(character.getY() == 719 && Greenfoot.isKeyDown("d") || character.getY() == 719 && Greenfoot.isKeyDown("a"))
         {
             Level Level = (Level) getWorld();
             String loss = "You lost. Press R to restart";
-            Level.display(loss);
+            Level.display(loss, Level.getWidth()/2, Level.getHeight()/2);
         }
     }
     //Sets the world at the beginning if the player presses r
@@ -69,19 +71,25 @@ public class Player extends Actor
             Greenfoot.setWorld(new Level());
         }
     }
+    //Takes the player back to the title screen
+    public void exitToTitle()
+    {
+        if(Greenfoot.isKeyDown("t"))
+        {
+            Greenfoot.setWorld(new Title());
+        }
+    }
     //Checks if the player is standing on a platform
     boolean onGround()
     {
         Actor under = getOneObjectAtOffset(0, getImage().getHeight() / 2, Ground.class);
         return under != null;
     }
-    
     boolean onGroundMid()
     {
         Actor underMid = getOneObjectAtOffset(0, getImage().getHeight() / 2, GroundMid.class);
         return underMid != null;
     }
-    
     boolean onGroundHigh()
     {
         Actor underHigh = getOneObjectAtOffset(0, getImage().getHeight() / 2, GroundHigh.class);
@@ -104,7 +112,7 @@ public class Player extends Actor
     {
         Actor coin = getOneIntersectingObject(Coin.class);
         Level Level = (Level) getWorld();
-        //Picking up a coin adds 1 to the visual counter
+        //Picking up a coin removes the coin from the screen and adds 1 to the visual counter
         if(coin != null)
         {
             getWorld().removeObject(coin);
@@ -118,18 +126,21 @@ public class Player extends Actor
             win = true;
         }
     }
-    //If the player touches the entrance to the next level, they are taken to the next level
+    //If the player touches the end object, they are taken to the next level
     public void secondLevel()
     {
         Actor EndLevel = getOneIntersectingObject(EndLevel.class);
         if(EndLevel != null)
         {
             getWorld().removeObject(EndLevel);
+            //Displays how much time it took to win
             double time = (double)Level.timer.millisElapsed()/1000;
             Level Level = (Level) getWorld();
             String result = "You Won In " + Double.toString(time) + " seconds";
-            Level.display(result);
-            //Greenfoot.setWorld(new Level2());
+            Level.display(result, Level.getWidth()/2, Level.getHeight()/2);
+            //Adds score to both high score and recent score
+            HighScores.stack.push(time);
+            HighScores.arr.add(time);
         }
     }
 }

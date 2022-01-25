@@ -20,11 +20,11 @@ public class GroundMid extends Actor
     {
         // Add your action code here.
         //Same as ground but as the mid point
-        if(Greenfoot.isKeyDown("right"))
+        if(Greenfoot.isKeyDown("d"))
         {
             move(-10);
         }
-        if(Greenfoot.isKeyDown("left"))
+        if(Greenfoot.isKeyDown("a"))
         {
             move(10);
         }

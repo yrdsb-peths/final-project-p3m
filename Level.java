@@ -27,7 +27,8 @@ public class Level extends World
     {
         //Displays the number of coins collected out of the total of 10
         showText(score + "/10", 100, 20);
-        if(Greenfoot.getRandomNumber(100) <= 2 && Greenfoot.isKeyDown("right"))
+        //Spawns coins when the player is moving through the world to prevent clumps
+        if(Greenfoot.getRandomNumber(100) <= 2 && Greenfoot.isKeyDown("d"))
         {
             addObject(new Coin(), getWidth() - 1, Greenfoot.getRandomNumber(360) + 200);
         }
@@ -38,11 +39,9 @@ public class Level extends World
         score = score + 1;
     }
     
-    public void display(String text)
+    public void display(String text, int x, int y)
     {
         int size = getWidth() / 12;
-        int x = getWidth()/2;
-        int y = getHeight()/2;
         Label label = new Label(text, size);
         label.setFillColor(Color.YELLOW);
         addObject(label, x, y);

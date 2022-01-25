@@ -1,4 +1,6 @@
 import greenfoot.*;
+import java.util.ArrayList;
+
 /**
  * Write a description of class Utilities here.
  * 
@@ -8,28 +10,32 @@ import greenfoot.*;
 public class Utilities  
 {  
     //Methods to use quickswap
-    public static void swap(int[] arr, int i, int j)
+    public static void swap(ArrayList<Double> arr, int i, int j)
     {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+        double temp = arr.get(i);
+        double j2 = (double) j;
+        arr.set(i, j2);
+        arr.set(j, temp);
     }
     
-    public static void shuffle(int[] arr)
+    public static int partition(ArrayList<Double> arr, int low, int high)
     {
-        int n = arr.length;
-        for(int i = 0; i < n; i++)
+        int p = low, j;
+        for(j = low + 1; j <= high; j++)
         {
-            int r = Greenfoot.getRandomNumber(n - i) + i;
-            Utilities.swap(arr, i, r);
+            if(arr.get(j) < arr.get(low))
+                swap(arr, ++p, j);
         }
+        swap(arr, low, p);
+        return p;
     }
-    
-    public static void setup(int[] arr)
+
+    public static void quicksort(ArrayList<Double> arr, int low, int high)
     {
-        for (int i = 0; i < arr.length; i++)
-        {
-            arr[i] = i++;
+        if(low < high){
+            int p = partition(arr, low, high);
+            quicksort(arr, low, p - 1);
+            quicksort(arr, p + 1, high);
         }
     }
 }

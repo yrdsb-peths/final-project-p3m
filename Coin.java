@@ -15,12 +15,12 @@ public class Coin extends Actor
     public void act()
     {
         // Add your action code here.
-        //Moves when the player uses directional keys
-        if(Greenfoot.isKeyDown("right"))
+        //Moves the coins on the screen
+        if(Greenfoot.isKeyDown("d"))
         {
             move(-10);
         }
-        if(Greenfoot.isKeyDown("left"))
+        if(Greenfoot.isKeyDown("a"))
         {
             move(10);
         }
