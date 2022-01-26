@@ -32,13 +32,18 @@ public class Level extends World
         {
             addObject(new Coin(), getWidth() - 1, Greenfoot.getRandomNumber(360) + 200);
         }
+        //Spawns enemies unless the player has won
+        if(Greenfoot.getRandomNumber(100) <= 2 && Player.win == false)
+        {
+            addObject(new Enemy(), getWidth() - 1, Greenfoot.getRandomNumber(360) + 200);
+        }
     }
     //Score represents number of coins so everytime one is grabbed the number increases
     public void increaseScore()
     {
         score = score + 1;
     }
-    
+    //Puts a label on the screen that shows yellow text
     public void display(String text, int x, int y)
     {
         int size = getWidth() / 12;
@@ -46,7 +51,6 @@ public class Level extends World
         label.setFillColor(Color.YELLOW);
         addObject(label, x, y);
     }
-    
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.

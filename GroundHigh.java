@@ -8,10 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GroundHigh extends Actor
 {
-    public GroundHigh()
-    {
-        getImage().scale(getImage().getWidth() * 6,getImage().getHeight() * 2);
-    }
     /**
      * Act - do whatever the Ground wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -19,15 +15,16 @@ public class GroundHigh extends Actor
     public void act()
     {
         // Add your action code here.
-        //Same as ground but at the highest point
-        if(Greenfoot.isKeyDown("d"))
+        //Same as ground but at the highest point unless the game is over
+        if(Greenfoot.isKeyDown("d") && Player.lost == false && Player.win == false)
         {
             move(-10);
         }
-        if(Greenfoot.isKeyDown("a"))
+        if(Greenfoot.isKeyDown("a") && Player.lost == false && Player.win == false)
         {
             move(10);
         }
+        //When a platform reaches the left end of the screen another is spawned in the same general area
         if(getX() == 0)
         {
             setLocation(getWorld().getWidth() - 1,Greenfoot.getRandomNumber(50) + 250);

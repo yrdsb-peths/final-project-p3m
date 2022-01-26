@@ -23,50 +23,43 @@ public class HighScores extends World
         if(arr.size() >= 1)
         {
             Utilities.quicksort(arr, 0, arr.size() - 1);
-            
+
             double stackTemp = stack.pop();
             stack.push(stackTemp);
-            
+
             String recentScoreTime = "" + stackTemp;
             String highScoreTime = "" + arr.get(0);
-            
-            Label recentScoreHeader = new Label("Recent Scores", 40);
+
+            Label recentScoreHeader = new Label("Most Recent Score", 40);
             Label highScoreHeader = new Label("High Scores", 40);
-            
+
             Label recentScore = new Label(recentScoreTime, 40);
             Label highScore = new Label(highScoreTime, 40);
-            
+
             addObject(recentScoreHeader, getWidth() / 4, 100);
             addObject(highScoreHeader, getWidth() / 4 * 3, 100);
-            
+
             addObject(recentScore, getWidth() / 4, 150);
             addObject(highScore, getWidth() / 4 * 3, 150);
-            //
+            //Different cases are present to prevent game from crashing when
+            //trying to access an index that has no value
             if(arr.size() >= 2)
             {
-                double stackTemp2 = stack.pop();
-                stack.push(stackTemp2);
-                
-                String recentScoreTime2 = "" + stackTemp2;
+                Utilities.quicksort(arr, 0, arr.size() - 1);
+
                 String highScoreTime2 = "" + arr.get(1);
-                
-                Label recentScore2 = new Label(recentScoreTime2, 40);
+
                 Label highScore2 = new Label(highScoreTime2, 40);
-                
-                addObject(recentScore2, getWidth() / 4, 200);
+
                 addObject(highScore2, getWidth() / 4 * 3, 200);
                 if(arr.size() >= 3)
                 {
-                    double stackTemp3 = stack.pop();
-                    stack.push(stackTemp3);
-                    
-                    String recentScoreTime3 = "" + stackTemp3;
+                    Utilities.quicksort(arr, 0, arr.size() - 1);
+
                     String highScoreTime3 = "" + arr.get(2);
-                    
-                    Label recentScore3 = new Label(recentScoreTime3, 40);
+
                     Label highScore3 = new Label(highScoreTime3, 40);
-                    
-                    addObject(recentScore3, getWidth() / 4, 250);
+
                     addObject(highScore3, getWidth() / 4 * 3, 250);
                 }
             }
@@ -78,10 +71,11 @@ public class HighScores extends World
             addObject(highScore, getWidth() / 2, 100);
         }
         Label backToTitle = new Label("Press <t> to return to the title screen", 40);
-        
+
         addObject(backToTitle, getWidth() / 2, 550);
+        prepare();
     }
-    
+
     public void act()
     {
         //If the user presses space then they return to the title screen
@@ -90,5 +84,14 @@ public class HighScores extends World
             Title gameWorld = new Title();
             Greenfoot.setWorld(gameWorld);
         }
+    }
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
+        PictureForHighScore pictureForHighScore = new PictureForHighScore();
+        addObject(pictureForHighScore, getWidth() / 2,300);
     }
 }

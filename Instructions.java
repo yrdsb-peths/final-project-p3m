@@ -39,10 +39,14 @@ public class Instructions extends World
         //Placements for the objects on the screen
         Label instructions = new Label("The goal of this game is to collect coins until the exit appears and then reaching the ", 40);
         addObject(instructions, getWidth() / 2, 100);
-        Label instructions2 = new Label("the exit as fast as possible without falling off the platforms. 'a' and 'd' to move", 40);
+        Label instructions2 = new Label("the exit as fast as possible without falling off the platforms. You also have to avoid", 40);
         addObject(instructions2, getWidth() / 2, 150);
-        Label instructions3 = new Label("left and right, 'space' to jump, 'r' to restart the level, and 't' to return to the title. ", 40);
+        Label instructions3 = new Label("enemies which appear as red turtles but if you continue on forward, ", 40);
         addObject(instructions3, getWidth() / 2, 200);
+        Label instructions4 = new Label("they will stop. If you go back, they will move faster. Use 'a' and 'd' to move ", 40);
+        addObject(instructions4, getWidth() / 2, 250);
+        Label instructions5 = new Label("left and right, 'space' to jump, 'r' to restart the level, and 't' to return to the title.", 40);
+        addObject(instructions5, getWidth() / 2, 300);
         Label start = new Label("Press <enter> to start", 50);
         addObject(start, getWidth() / 2, 550);
     }

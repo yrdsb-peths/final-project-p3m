@@ -14,12 +14,12 @@ public class EndLevel extends Actor
      */
     public void act()
     {
-        //An object that moves along the screen
-        if(Greenfoot.isKeyDown("d"))
+        //An object that moves along the screen unless the game is over
+        if(Greenfoot.isKeyDown("d") && Player.lost == false && Player.win == false)
         {
             move(-10);
         }
-        if(Greenfoot.isKeyDown("a"))
+        if(Greenfoot.isKeyDown("a") && Player.lost == false && Player.win == false)
         {
             move(10);
         }

@@ -12,7 +12,10 @@ public class Player extends Actor
     private int acceleration = 1;
     private int jumpHeight = -20;
     private int coins = 0;
-    boolean win = false;
+    //Prevents user from winning multiple times in one trun
+    public static boolean win = false;
+    //Allows the world to stop if the player loses
+    public static boolean lost = false;
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -30,9 +33,13 @@ public class Player extends Actor
         
         exitToTitle();
         
-        secondLevel();
-        
         lose();
+        
+        touchEnemy();
+        
+        win();
+        
+        easyWin();
     }
     //When the player falls, they should slowly fall faster the farther they fall
     private void fall()
@@ -61,6 +68,19 @@ public class Player extends Actor
             Level Level = (Level) getWorld();
             String loss = "You lost. Press R to restart";
             Level.display(loss, Level.getWidth()/2, Level.getHeight()/2);
+            lost = true;
+        }
+    }
+    public void touchEnemy()
+    {
+        Actor enemy = getOneIntersectingObject(Enemy.class);
+        if(enemy != null)
+        {
+            Level Level = (Level) getWorld();
+            String loss = "You lost. Press R to restart";
+            Level.display(loss, Level.getWidth()/2, Level.getHeight()/2);
+            getWorld().removeObject(enemy);
+            lost = true;
         }
     }
     //Sets the world at the beginning if the player presses r
@@ -69,6 +89,7 @@ public class Player extends Actor
         if(Greenfoot.isKeyDown("r"))
         {
             Greenfoot.setWorld(new Level());
+            lost = false;
         }
     }
     //Takes the player back to the title screen
@@ -77,6 +98,22 @@ public class Player extends Actor
         if(Greenfoot.isKeyDown("t"))
         {
             Greenfoot.setWorld(new Title());
+        }
+    }
+    //If the key is pressed then the user "wins", intended to test code based around completion
+    public void easyWin()
+    {
+        if(Greenfoot.isKeyDown("w"))
+        {
+            win = true;
+            //Displays how much time it took to win
+            double time = (double)Level.timer.millisElapsed()/1000;
+            Level Level = (Level) getWorld();
+            String result = "You Won In " + Double.toString(time) + " seconds";
+            Level.display(result, Level.getWidth()/2, Level.getHeight()/2);
+            //Adds score to both high score and recent score
+            HighScores.stack.push(time);
+            HighScores.arr.add(time);
         }
     }
     //Checks if the player is standing on a platform
@@ -126,8 +163,8 @@ public class Player extends Actor
             win = true;
         }
     }
-    //If the player touches the end object, they are taken to the next level
-    public void secondLevel()
+    //If the player touches the end object, the player "wins"
+    public void win()
     {
         Actor EndLevel = getOneIntersectingObject(EndLevel.class);
         if(EndLevel != null)

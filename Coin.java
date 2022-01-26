@@ -15,12 +15,12 @@ public class Coin extends Actor
     public void act()
     {
         // Add your action code here.
-        //Moves the coins on the screen
-        if(Greenfoot.isKeyDown("d"))
+        //Moves the coins on the screen unless the game is over
+        if(Greenfoot.isKeyDown("d") && Player.lost == false && Player.win == false)
         {
             move(-10);
         }
-        if(Greenfoot.isKeyDown("a"))
+        if(Greenfoot.isKeyDown("a") && Player.lost == false && Player.win == false)
         {
             move(10);
         }
